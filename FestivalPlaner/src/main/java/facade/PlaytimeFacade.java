@@ -5,6 +5,8 @@ import entity.Playtime;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
+import java.util.List;
 
 @Stateless
 public class PlaytimeFacade {
@@ -23,4 +25,7 @@ public class PlaytimeFacade {
             this.em.remove(entity);
     }
 
+    public List<Playtime> findAllConcertsForStage(long id){
+        return em.createNamedQuery("Playtime.findAll",Playtime.class).setParameter("id",id).setParameter("day","Monday").getResultList();
+    }
 }

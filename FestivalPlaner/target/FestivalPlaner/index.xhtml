@@ -4,15 +4,93 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>FestivalPlaner</title>
 </h:head>
 <h:body>
-    <h:form>
-        <p:panel id="toggleable" header="Toggleable" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+    <h2>Wählen Sie ein Festival und eine Stage aus und erhalten Sie den Timetable</h2>
+    <h:form id="invoiceform">
+        <h3>Festival auswählen:</h3>
+        <p:dataTable var="festival" value="#{indexController.getFestivalList()}" selectionMode="single"
+                     selection="#{indexController.selectedFestival}" rowKey="#{festival.id}" id="table">
+            <p:column headerText="Name">
+                <h:outputText value="#{festival.name}"/>
+            </p:column>
 
-        </p:panel>
+            <p:column headerText="Start Datum">
+                <h:outputText value="#{festival.startDate}"/>
+            </p:column>
+
+            <p:column headerText="End Datum">
+                <h:outputText value="#{festival.endDate}"/>
+            </p:column>
+        </p:dataTable>
+        <br/>
+        <p:commandButton id="selectRowBtn" value="Select Festival" update=":stageform :showform"/>
     </h:form>
+
+    <h:form id="stageform">
+
+        <h3>Stage auswählen:</h3>
+        <p:dataTable var="stage" value="#{indexController.getStageList()}" selectionMode="single"
+                     selection="#{indexController.selectedStage}" rowKey="#{stage.id}" id="table2">
+            <p:column headerText="Name">
+                <h:outputText value="#{stage.name}"/>
+            </p:column>
+
+            <p:column headerText="Discription">
+                <h:outputText value="#{stage.description}"/>
+            </p:column>
+
+            <p:column headerText="Genre">
+                <h:outputText value="#{stage.genre}"/>
+            </p:column>
+
+        </p:dataTable>
+        <br/>
+        <p:commandButton id="selectStageRow" value="Select Stage" update=":showform :stageform"/>
+    </h:form>
+
+    <h:form id="showform">
+        <h3>Timetable:</h3>
+        <p:dataTable var="playtime" value="#{indexController.getForStage()}" selectionMode="single"
+                     selection="#{indexController.selectedPlaytime}" rowKey="#{playtime.id}" id="table3">
+            <p:column headerText="Time">
+                <h:outputText value="#{playtime.time}">
+                    <f:convertNumber pattern="#0.00" />
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="Act">
+                <h:outputText value="#{playtime.act.name}"/>
+            </p:column>
+        </p:dataTable>
+        <br></br>
+        <p:commandButton id="selectedPlatime" value="Add Show to Personal Timetable" update=":showform :ownform"/>
+
+    </h:form>
+
+    <h:form id="ownform">
+        <h3>Own Timetable:</h3>
+        <p:dataTable var="own" value="#{indexController.getOwnTimetable()}" selectionMode="single"
+                     selection="#{indexController.toDeletePlaytime}" rowKey="#{own.id}" id="table4">
+            <p:column headerText="Time" sortBy="#{own.time}">
+                <h:outputText value="#{own.time}">
+                    <f:convertNumber pattern="#0.00" />
+                </h:outputText>
+            </p:column>
+            <p:column headerText="Stage">
+                <h:outputText value="#{own.timetable.stage.name}"/>
+            </p:column>
+            <p:column headerText="Act">
+                <h:outputText value="#{own.act.name}"/>
+            </p:column>
+        </p:dataTable>
+        <br></br>
+        <p:commandButton id="deletePlaytime" value="Delete Show from own Timetable" update=":ownform"/>
+    </h:form>
+
+
 </h:body>
 </html>

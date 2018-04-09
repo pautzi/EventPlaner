@@ -1,10 +1,12 @@
 package facade;
 
+import entity.Festival;
 import entity.Stage;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class StageFacade {
@@ -21,6 +23,10 @@ public class StageFacade {
         Stage entity = this.em.find(Stage.class,id);
         if(entity!=null)
             this.em.remove(entity);
+    }
+
+    public List<Stage> findAll(long id){
+        return em.createNamedQuery("Stage.findAll",Stage.class).setParameter("id",id).getResultList();
     }
 
 }

@@ -1,13 +1,16 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name="Festival.findAll",
+                query = "SELECT c FROM Festival c"
+        )
+})
 @XmlRootElement
 public class Festival {
     @Id

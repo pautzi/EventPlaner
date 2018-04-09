@@ -5,6 +5,7 @@ import entity.Festival;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class FestivalFacade {
@@ -17,6 +18,9 @@ public class FestivalFacade {
 
     public Festival update(Festival festival){ return this.em.merge(festival);}
 
+    public List<Festival> findAllFestivals(){
+        return em.createNamedQuery("Festival.findAll",Festival.class).getResultList();
+    }
     public void delete(long id){
         Festival entity = this.em.find(Festival.class,id);
         if(entity!=null)

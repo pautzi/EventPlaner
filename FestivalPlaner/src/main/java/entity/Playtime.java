@@ -3,9 +3,16 @@ package entity;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.sql.Time;
 
 @Entity
 @XmlRootElement
+@NamedQueries({
+        @NamedQuery(
+                name="Playtime.findAll",
+                query = "select e from Playtime e where e.timetable.stage.id= :id and e.timetable.day = :day"
+        )
+})
 public class Playtime implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +21,7 @@ public class Playtime implements Serializable {
     private Double time;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
-    private Stage stage;
+    private Timetable timetable;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     private Act act;
@@ -22,9 +29,9 @@ public class Playtime implements Serializable {
     public Playtime() {
     }
 
-    public Playtime(Double time, Stage stage, Act act) {
+    public Playtime(Double time, Timetable timetable, Act act) {
         this.time = time;
-        this.stage = stage;
+        this.timetable = timetable;
         this.act = act;
     }
 
@@ -44,12 +51,12 @@ public class Playtime implements Serializable {
         this.time = time;
     }
 
-    public Stage getStage() {
-        return stage;
+    public Timetable getTimetable() {
+        return timetable;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setTimetable(Timetable timetable) {
+        this.timetable = timetable;
     }
 
     public Act getAct() {

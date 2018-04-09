@@ -6,6 +6,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name="Stage.findAll",
+                query = "SELECT c FROM Stage c where c.festival.id=:id"
+        )
+})
 @XmlRootElement
 public class Stage implements Serializable {
     @Id
@@ -30,6 +36,12 @@ public class Stage implements Serializable {
         this.description = description;
         this.genre = genre;
         this.festival = festival;
+    }
+
+    public Stage(String name, String description, String genre) {
+        this.name = name;
+        this.description = description;
+        this.genre = genre;
     }
 
     public long getId() {
