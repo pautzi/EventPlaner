@@ -1,0 +1,14 @@
+Mon Apr 09 12:34:42 CEST 2018 : Apache Derby Network Server - 10.11.1.2 - (1629631) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Mon Apr 09 12:35:14 CEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0162-a9f8-b6d3-000002920b50 
+on database directory /Users/marcelpautz/Documents/Java/FestivalPlaner/db/db with class loader sun.misc.Launcher$AppClassLoader@60e53b93 
+Loaded from file:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_101-b13
+user.dir=/Users/marcelpautz/Documents/Java/FestivalPlaner/db
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.12.2
+derby.system.home=/Users/marcelpautz/Documents/Java/FestivalPlaner/db
+Database Class Loader started - derby.database.classpath=''
